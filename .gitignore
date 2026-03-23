@@ -1,0 +1,61 @@
+# Python
+**/__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+.pytest_cache/
+tests.log
+
+# Node / Frontend
+**/node_modules/
+**/dist/
+.eslintcache
+
+# Environment / Private
+.env
+.dummy_token
+
+# Project Specific Data (Large/Sensitive)
+Backend/media/
+Microservices/data/
+Backend/out.json
+Microservices/error.txt
+Backend/test_output.txt
+
+# Databases & HDF5
+*.h5
+*.h5.lock
+db.sqlite3
+
+# Zip Archives
+Backend.zip
+Redis.zip
+
+# Redis Binaries
+Redis/
+
+# Runtime Data
+dump.rdb
+*.rdb
+
+# Storage (Generated Tensors & Uploads)
+storage/
+
+# Test Data
+test_data/
+
+# Aggregator Output
+Microservices/shared/model_inputs/
+
+# Scratch / Debug Scripts & Notes
+dump_pdfs.py
+get_schema.py
+test_500.py
+bugs.txt
+latency.txt
+instructions.txt
+
+# OS Specific
+.DS_Store
+Thumbs.db

@@ -1,0 +1,20 @@
+.login-image-wrapper {
+  background-color: #76cdd1;
+  border-radius: 18px;
+  padding: 30px;
+  max-width: 500px;
+  margin: auto;
+}
+
+.login-image-wrapper img {
+  max-width: 100%;
+}
+
+input.form-control {
+  height: 45px;
+  font-size: 16px;
+}
+
+button.btn-dark {
+  border-radius: 8px;
+}
