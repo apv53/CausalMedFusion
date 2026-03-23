@@ -60,7 +60,7 @@ function App() {
         />
 
         <Route
-          path="/assessment/:assessmentId/results"
+          path="/patients/:patientId/visits/:visitId/results"
           element={<AssessmentResults />}
         />
       </Route>

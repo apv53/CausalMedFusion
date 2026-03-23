@@ -76,7 +76,7 @@ export default function VisitDetails() {
   };
 
   const handleAnalyze = () => {
-    navigate(`/assessment/${visitId}/results`);
+    navigate(`/patients/${patientId}/visits/${visitId}/results`);
   };
 
   const handleDownload = async (fileId) => {
