@@ -40,10 +40,11 @@ export default function AssessmentResults() {
   const runSeverityEngine = async () => {
     setEngineStage('aggregating');
     try {
-       await API.post("analysisresults/trigger_aggregation/", { visit: assessmentId });
+       // Small delay so the user actually sees "aggregating" stage
+       await new Promise(r => setTimeout(r, 500));
        
        setEngineStage('inferencing');
-       await API.post("analysisresults/trigger_inference/", { visit: assessmentId });
+       await API.post("analysisresults/run_engine/", { visit: assessmentId });
 
        setEngineStage('done');
        await fetchResults();

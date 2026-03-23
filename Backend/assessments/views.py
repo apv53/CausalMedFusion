@@ -20,9 +20,8 @@ from rest_framework import status
 
 from visits.models import Visit
 from .tasks import process_assessment_file_task
-from .microservices_client import trigger_aggregator
+from .microservices_client import trigger_aggregator, trigger_inference_service
 import uuid
-import random
 
 
 @api_view(["GET"])
@@ -224,7 +223,7 @@ class AnalysisResultViewSet(viewsets.ModelViewSet):
         return queryset.order_by("-created_at")
 
     @action(detail=False, methods=["post"])
-    def trigger_aggregation(self, request):
+    def run_engine(self, request):
         visit_id = request.data.get("visit")
         if not visit_id:
             return Response({"detail": "visit is required."}, status=status.HTTP_400_BAD_REQUEST)
@@ -232,6 +231,7 @@ class AnalysisResultViewSet(viewsets.ModelViewSet):
         from django.shortcuts import get_object_or_404
         visit = get_object_or_404(Visit, id=visit_id)
 
+        # Step 1: Check for pending aggregation files
         has_pending = AssessmentFile.objects.filter(
             assessment__visit=visit,
             aggregation_status="pending"
@@ -244,35 +244,33 @@ class AnalysisResultViewSet(viewsets.ModelViewSet):
                     {"detail": "Failed to aggregate files into HDF5. Check ML Gateway logs."},
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
-        return Response({"status": "aggregated"}, status=status.HTTP_200_OK)
 
-    @action(detail=False, methods=["post"])
-    def trigger_inference(self, request):
-        visit_id = request.data.get("visit")
-        if not visit_id:
-            return Response({"detail": "visit is required."}, status=status.HTTP_400_BAD_REQUEST)
+        # Step 2: Call ONNX inference service
+        inference_result = trigger_inference_service(visit.visit_id)
+        if inference_result is None:
+            return Response(
+                {"detail": "Inference service failed. Check ML Gateway logs."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
-        from django.shortcuts import get_object_or_404
-        visit = get_object_or_404(Visit, id=visit_id)
+        # Step 3: Persist result to AnalysisResult
+        assessments_used = list(
+            Assessment.objects.filter(visit=visit).values_list('id', flat=True)
+        )
 
-        distinct_windows = list(Assessment.objects.filter(visit=visit).values_list('window_id', flat=True).distinct())
-        severity_index = len(distinct_windows) if distinct_windows else 1
-        assessments_used = list(Assessment.objects.filter(visit=visit).values_list('id', flat=True))
-        
-        base_sev = random.uniform(0.1, 0.4) + (severity_index * 0.05)
-        severity_score = min(round(base_sev, 3), 1.0)
-        mortality_risk = min(round(base_sev * 0.8, 3), 1.0)
-        global_sev_prob = min(round(base_sev * 0.9, 3), 1.0)
-        
         result = AnalysisResult.objects.create(
             visit=visit,
-            inference_id=uuid.uuid4(),
-            severity_index=severity_index,
+            inference_id=inference_result.get("assessment_id"),
+            severity_index=inference_result.get("severity_index", 1),
             assessments_used=assessments_used,
-            severity_score=severity_score,
-            mortality_risk=mortality_risk,
-            global_sev_prob=global_sev_prob,
-            assessment_report=f"MOCK INFERENCE DATA: Based on {severity_index} clinical windows, the severity indicates a score of {severity_score}. (Inference Microservice integration pending).",
+            severity_score=inference_result.get("severity_score", 0.0),
+            mortality_risk=inference_result.get("mortality_prob", 0.0),
+            vent_prob=inference_result.get("vent_prob", 0.0),
+            dialysis_prob=inference_result.get("dialysis_prob", 0.0),
+            mechanical_prob=inference_result.get("mechanical_prob", 0.0),
+            cardiac_prob=inference_result.get("cardiac_prob", 0.0),
+            global_sev_prob=inference_result.get("global_sev_prob", 0.0),
+            assessment_report=inference_result.get("assessment_report", ""),
             is_stale=False
         )
 

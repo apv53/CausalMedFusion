@@ -172,3 +172,25 @@ def embed_batch(visit_id, items, modality):
     except Exception as e:
         logger.error(f"Error batch-embedding {modality} for visit {visit_id}: {e}")
         return None
+
+
+# ── ML Gateway: Inference Service ─────────────────────────────────
+
+ML_GATEWAY_URL = getattr(settings, "ML_GATEWAY_URL", "http://localhost:8005")
+
+
+def trigger_inference_service(visit_id: str) -> dict | None:
+    """
+    POST to the ONNX inference service on the ML Gateway.
+    Returns the full inference response dict on success, None on failure.
+    """
+    url = f"{ML_GATEWAY_URL}/v1/infer"
+
+    try:
+        payload = {"visit_id": visit_id}
+        response = requests.post(url, json=payload, timeout=120)
+        response.raise_for_status()
+        return response.json()
+    except Exception as e:
+        logger.error(f"Error triggering inference for visit {visit_id}: {e}")
+        return None

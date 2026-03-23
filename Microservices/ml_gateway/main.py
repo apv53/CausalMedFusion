@@ -7,6 +7,7 @@ to speed up local developer boot times.
 
 Included Services:
 - Embedding Service
+- Inference Service (ONNX)
 """
 
 import sys
@@ -22,6 +23,7 @@ if _project_root not in sys.path:
 
 # Import Routers
 from embedding_service.router import router as embedding_router
+from inference_service.router import router as inference_router
 
 
 app = FastAPI(
@@ -46,6 +48,7 @@ async def health_check():
 
 # Mount Sub-Routers
 app.include_router(embedding_router, tags=["Embedding Extraction"])
+app.include_router(inference_router, tags=["ONNX Inference"])
 
 
 if __name__ == "__main__":
