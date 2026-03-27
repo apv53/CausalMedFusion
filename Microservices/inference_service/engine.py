@@ -108,6 +108,13 @@ def _generate_report(
     )
 
 
+def _clean(val: float) -> float:
+    """Ensure value is a finite float (not NaN or Inf) for JSON compatibility."""
+    if np.isnan(val) or np.isinf(val):
+        return 0.0
+    return float(val)
+
+
 # ── Main Inference Pipeline ─────────────────────────────────────────
 
 def run_inference(
@@ -187,12 +194,12 @@ def run_inference(
         "assessment_id": assessment_id,
         "visit_id": visit_id,
         "severity_index": severity_index,
-        "mortality_prob": round(mortality_prob, 6),
-        "severity_score": round(severity_score, 6),
-        "vent_prob": round(vent_prob, 6),
-        "dialysis_prob": round(dialysis_prob, 6),
-        "mechanical_prob": round(mechanical_prob, 6),
-        "cardiac_prob": round(cardiac_prob, 6),
-        "global_sev_prob": round(global_sev_prob, 6),
+        "mortality_prob": _clean(round(mortality_prob, 6)),
+        "severity_score": _clean(round(severity_score, 6)),
+        "vent_prob": _clean(round(vent_prob, 6)),
+        "dialysis_prob": _clean(round(dialysis_prob, 6)),
+        "mechanical_prob": _clean(round(mechanical_prob, 6)),
+        "cardiac_prob": _clean(round(cardiac_prob, 6)),
+        "global_sev_prob": _clean(round(global_sev_prob, 6)),
         "assessment_report": assessment_report,
     }

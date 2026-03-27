@@ -1,0 +1,1048 @@
+REFERENCE DOCUMENT FOR PREPARING PROJECT REPORT.
+The FISAT Certificate Management System (CMS) is a web-based application designed  to
+streamline  and automate  the  process  of managing  certificates  and events within the FISAT
+institution. This system aims to provide a centralized platform for faculty members and
+administrators to efficiently organize events, issue certificates, and manage related data.
+Software Requirement Specification 
+Functional Requirements:
+This section describes the functional requirements of the FISAT Certificate management 
+System in detail. Functional requirements specify the system's behavior and interactions with
+users, external systems, and data.
+2.1 Login Module
+2.1.1 User Authentication
+Requirement ID: FR-LOGIN-001
+Description: The system shall provide a login screen where users can enter their credentials 
+(username and password) to authenticate and access the system.
+Inputs: Username, Password
+Outputs: Authentication status (Success/Failure)
+Priority: High
+Dependencies: None
+2.2 Event Management Module
+2.2.1 Event Creation
+Requirement ID: FR-EVENT-001
+Description: Users with appropriate permissions shall be able to create new events by providing 
+event details such as name, date, description, and associated cells.
+Inputs: Event Name, Start Date, End Date, Description, Cell Name
+Outputs: Event ID, Event Details
+Priority: High
+Dependencies: User Authentication
+2.2.2 Event Editing
+Requirement ID: FR-EVENT-002
+Description: Users shall be able to edit existing events to update event details or make changes as
+needed.
+Inputs: Event ID, Updated Event Details
+Outputs: Updated Event Details
+Priority: High
+Dependencies: User Authentication
+2.2.3 Event Deletion
+Requirement ID: FR-EVENT-003
+Description: Users shall have the capability to delete events that are no longer required or have 
+been cancelled.
+Inputs: Event ID
+Outputs: Confirmation message
+Priority: High
+Dependencies: User Authentication
+2.3 Certificate Management Module
+2.3.1 Certificate Generation
+Requirement ID: FR-CERT-001Description: The system shall generate certificates for 
+participants of events based on predefined templates and participant information.
+Inputs: Event ID, Participant Information
+Outputs: Generated Certificate
+Priority: High
+Dependencies: Event Management Module
+2.4 User Management Module
+2.4.1 User Registration
+Requirement ID: FR-USER-001
+Description: Administrators shall be able to register new users by providing their personal and 
+login information.
+Inputs: User Details (Name, Email, Role, Password)
+Outputs: User Registration Confirmation
+Priority: High
+Dependencies: User Authentication
+2.4.2 User Role Management
+Requirement ID: FR-USER-002
+Description: Administrators shall have the ability to assign roles and permissions to users based 
+on their responsibilities and access requirements.
+Inputs: User Role, Permissions
+Outputs: Role Assignment Confirmation
+Priority: High
+Dependencies: User Authentication
+Non-Functional Requirements :
+Non-functional requirements define the quality attributes of the system, including performance, 
+security, reliability, usability, and compliance. These requirements ensure that the system meets 
+the desired standards in areas beyond just functionality.
+3.1 Performance
+3.1.1 Response Time
+Requirement ID: NFR-PERF-001
+Description: The system shall respond to user interactions (e.g., login, event
+creation) within 2 seconds under normal load conditions.
+Priority: High
+3.1.2 Scalability
+Requirement ID: NFR-PERF-002
+Description: The system shall be able to handle a minimum of 100 concurrent users without 
+degradation in performance.
+Priority: High
+3.2 Security
+3.2.1 Data Encryption
+Requirement ID: NFR-SEC-001
+Description: All sensitive data stored in the database (e.g., passwords, participant information) 
+shall be encrypted using industry-standard encryption algorithms.
+Priority: High
+3.2.2 Authentication Mechanism
+Requirement ID: NFR-SEC-002
+Description: The system shall support secure authentication methods such as password hashing 
+and salting to protect user credentials.
+Priority: High
+3.3 Reliability
+3.3.1 Fault Tolerance
+Requirement ID: NFR-REL-001
+Description: The system shall be resilient to hardware failures or network outages, with minimal 
+impact on user experience.
+Priority: High
+3.3.2 Error Handling
+Requirement ID: NFR-REL-002
+Description: The system shall have graceful error handling mechanisms to handle unexpected 
+errors and provide meaningful error messages to users.
+Priority: High
+3.4 Usability
+3.4.1 User Interface Consistency
+Requirement ID: NFR-USAB-001
+Description: The user interface shall maintain consistency in design elements, layout, and 
+navigation across all screens to enhance user experience.
+Priority: High
+3.4.2 Accessibility
+Requirement ID: NFR-USAB-002
+Description: The application shall adhere to accessibility standards (e.g., WCAG) to ensure it is 
+accessible to users with disabilities.
+Priority: High
+3.5 Compliance
+3.5.1 Data Privacy
+Requirement ID: NFR-COMP-001
+Description: The system shall comply with relevant data protection regulations (e.g., GDPR, 
+HIPAA) and institutional privacy policies to protect user data.
+Priority: High
+3.5.2 Regulatory Compliance
+Requirement ID: NFR-COMP-002
+Description: The system shall ensure compliance with any industry-specific regulations or 
+standards applicable to the institution.
+Priority: High
+Software Design Document
+System Features:
+This section provides a detailed breakdown of the various features or modules of the FISAT 
+Certificate Management System, along with descriptions of their functionalities, inputs, outputs, 
+and dependencies.
+4.1 Login Module
+4.1.1 User Authentication
+Description: This feature allows users to authenticate themselves into the system by providing 
+their credentials (username and password).
+Functionality: Validates user credentials against stored data in the system's authentication 
+database.
+Inputs: Username, Password
+Outputs: Authentication status (Success/Failure)
+Dependencies: None
+4.2 Event Management Module
+4.2.1 Event Creation
+Description: This feature enables users to create new events by providing relevant event details 
+such as name, date, description, and associated cells.
+Functionality: Validates input data, generates unique event ID, and saves event details to the 
+system database.
+Inputs: Event Name, Start Date, End Date, Description, Cell Name
+Outputs: Event ID, Event Details
+Dependencies: User Authentication
+4.2.2 Event Editing
+Description: This feature allows users to edit existing events to update event details or make 
+changes as needed.Functionality: Retrieves existing event details, allows users to modify event 
+information, and updates the event record in the system database.
+Inputs: Event ID, Updated Event Details
+Outputs: Updated Event Details
+Dependencies: User Authentication
+4.2.3 Event Deletion
+Description: This feature enables users to delete events that are no longer required or have been 
+cancelled.
+Functionality: Retrieves event details based on the event ID, deletes the event record from the 
+system database, and removes associated data (e.g., certificates).
+Inputs: Event ID
+Outputs: Confirmation message
+Dependencies: User Authentication
+4.3 Certificate Management Module
+4.3.1 Certificate Generation
+Description: This feature automates the generation of certificates for participants of events based 
+on predefined templates and participant information.
+Functionality: Retrieves participant data for the specified event, merges it with the certificate 
+template, and generates a unique certificate for each participant.
+Inputs: Event ID, Participant Information
+Outputs: Generated Certificate
+Dependencies: Event Management Module
+4.3.2 Certificate Distribution
+Description: This feature facilitates the distribution of certificates to event participants either 
+electronically (via email or download) or manually (printed copies).
+Functionality: Sends certificates to participants via email or provides download links, or  
+generates printable certificates for manual distribution.
+Inputs: Participant Email Address, Certificate Format (PDF, Print)
+Outputs: Certificate Distribution Status
+Dependencies: Certificate Generation
+System Architecture Design
+System Components:
+1. Frontend Application (ReactJS + TailwindCSS):
+○ Responsible for the user interface and interaction with users.
+○ Built using ReactJS for dynamic UI rendering.
+○ Styled using TailwindCSS for responsive and modern design.
+2. Backend Server (PHP CodeIgniter + Apache2):
+○ Provides RESTful APIs to the frontend for data exchange.
+○ Developed using PHP CodeIgniter framework for rapid development and MVC 
+architecture.
+○ Deployed on Apache2 web server for serving PHP scripts.
+3. Database (PostgreSQL):
+○ Stores application data, including user information, events, certificates, etc.
+○ Utilizes PostgreSQL for its relational data model, scalability, and robustness.
+4. LDAP Server:
+○ Handles authentication and authorization using LDAP (Lightweight Directory 
+Access Protocol).
+○ Integrates with the LDAP server to authenticate users and manage access control.
+5. External API (Gmail API):
+○ Integrates with the Gmail API to send emails for notifications and communication
+purposes.
+6. AWS Cloud Platform:
+○ Deployment environment hosted on AWS (Amazon Web Services) for scalability,
+reliability, and security.
+○ Utilizes AWS services such as EC2 for virtual servers, RDS for managed 
+PostgreSQL database, and S3 for file storage.
+System Interaction:
+● Frontend <-> Backend:
+○ Frontend interacts with the backend server via RESTful APIs for fetching and 
+manipulating data.
+○ Backend processes requests, retrieves data from the database, and sends responses
+to the frontend.
+● LDAP Authentication:
+○ Frontend sends user credentials to the LDAP server for authentication.
+○ LDAP server verifies the credentials and sends back authentication status to the 
+frontend.
+● External API Integration:
+○ Backend integrates with the Gmail API to send emails for notifications and 
+communication with users.
+Scalability and Security Measures:
+● Vertical Scalability:
+○ Architecture designed for vertical scalability to handle increased load by 
+upgrading server resources (e.g., CPU, RAM) as needed.
+● Security Measures:
+○ CodeIgniter application built following security best practices to prevent common
+vulnerabilities such as SQL injection, XSS, CSRF, etc.
+○ Database security ensured through PostgreSQL's features like role-based access 
+control, encryption, and auditing.
+○ Communication between components secured using HTTPS/TLS protocols.
+○ AWS security measures implemented, including network security groups, IAM 
+roles, encryption at rest, etc.
+Constraints :
+1. Technology Constraints
+ Operating System: The system must be compatible with commonly used  operating systems
+such as Windows, macOS, and Linux.
+ Web Browser Compatibility: The system should be compatible with modern  web browsers such
+as Google Chrome, Mozilla Firefox, and Microsoft Edge.
+ Programming Language: The system should be developed using  programming languages and
+frameworks that  are  supported  by the   development  team  and  suitable  for web  application
+development.
+ 2.  Hardware Constraints
+ Server Requirements: The system must be hosted on servers with adequate  resources (e.g.,
+CPU, memory, storage) to support expected user loads and  data processing requirements.
+ Network Infrastructure: The system's performance and availability may be impacted by the
+quality  and  reliability  of  the  network  infrastructure  used  for   hosting  and  accessing  the
+application.
+ 3. Regulatory Constraints
+ Data Privacy Regulations: The system must comply with relevant data protection regulations
+(e.g., GDPR, HIPAA) and institutional policies governing  the collection, storage, and processing
+of personal data.
+ Security  Standards:  The  system  must  adhere  to  industry-standard  security   practices  and
+protocols to protect sensitive information and prevent  unauthorized access or data breaches.
+ 4. Time Constraints
+ Project Timeline: The system development and implementation must adhere  to the agreed-upon
+project timeline and milestones to ensure timely delivery and deployment.
+ Scheduled Downtime: Any planned maintenance or system downtime should  be scheduled
+during off-peak hours to minimize disruption to users and  operations.
+ 5. Resource Constraints
+ Budget: The system development and implementation should stay within the allocated budget,
+considering factors such as development costs, licensing fees, and infrastructure expenses.
+ Human Resources: Availability of skilled personnel and development resources may impact the
+system's design, development, and maintenance activities.
+Application Architecture Design:
+1. Frontend:
+○ Technology: ReactJS with Tailwind CSS.
+○ Description: The frontend application will be developed using ReactJS, a popular 
+JavaScript library for building user interfaces. Tailwind CSS will be used for 
+styling to ensure a modern and responsive design.
+2. Backend:
+○ Technology: PHP CodeIgniter.
+○ Description: The backend server will be built using PHP CodeIgniter, a 
+lightweight and powerful PHP framework known for its simplicity and speed of 
+development. CodeIgniter follows the MVC (Model-View-Controller) pattern, 
+facilitating organized and maintainable code.
+3. Database:
+○ Technology: PostgreSQL.
+○ Description: PostgreSQL will be used as the database management system to 
+store application data. Its relational model, support for complex queries, and data 
+integrity features make it suitable for managing various types of data in the 
+system.
+4. User Authentication and Authorization:
+○ Method: LDAP (Lightweight Directory Access Protocol).
+○ Description: LDAP will be utilized for user authentication and authorization. It 
+provides a centralized authentication mechanism, allowing users to log in using 
+their LDAP credentials and managing access control based on LDAP groups or 
+roles.
+5. External API Integration:
+○ API: Gmail API.
+○ Description: The application will integrate with the Gmail API to send emails for 
+notifications and communication with users. This API will facilitate sending 
+emails for events, certificate notifications, and other relevant communications.
+6. Scalability:
+○ Horizontal Scalability: The architecture will be designed to scale horizontally to 
+handle increased user traffic and data volume. This can be achieved by deploying 
+multiple instances of the backend server behind a load balancer.
+○ Vertical Scalability: Vertical scalability will also be considered, allowing 
+individual components to be upgraded with more resources (e.g., CPU, memory) 
+to handle increased load.
+7. Security Measures:
+○ Frontend Security: Implement security best practices in frontend development to 
+mitigate common web vulnerabilities like XSS (Cross-Site Scripting) and CSRF 
+(Cross-Site Request Forgery).
+○ Backend Security: Apply security measures in CodeIgniter development to 
+protect against SQL injection, authentication bypass, and other security threats.
+○ Data Security: Ensure data security in PostgreSQL by implementing encryption 
+mechanisms and access control policies to protect sensitive information.
+○ Network Security: Implement secure communication protocols (HTTPS/TLS) 
+between frontend, backend, and database components to protect data in transit.
+8. Deployment Environment:
+○ Platform: AWS (Amazon Web Services).
+○ Description: The application will be deployed on AWS cloud infrastructure for its
+scalability, reliability, and flexibility. AWS services such as EC2 (Elastic 
+Compute Cloud), RDS (Relational Database Service), and S3 (Simple Storage 
+Service) will be utilized for hosting the application components.
+API Design :
+1. Authentication API
+1.1. Endpoint: /api/auth/login
+● Method: POST
+Request Body:
+{
+  "username": "example_user",
+  "password": "example_password"
+}
+● Response:
+○ Success (HTTP 200):
+{
+  "token": "example_token"
+}
+○ Error (HTTP 401):
+{
+  "error": "Unauthorized",
+  "message": "Invalid username or password"
+}
+2. Event Management APIs
+2.1. Endpoint: /api/events
+● Method: GET
+● Response:
+ Success (HTTP 200):
+           [
+            {
+                "id": 1,
+    "name": "Event Name",
+    "description": "Event Description",
+    "start_date": "2024-05-01",
+    "end_date": "2024-05-03"
+  },
+  {
+  "id": 2,
+     "name": "Another Event",
+    "description": "Another Description",
+    "start_date": "2024-06-01",
+    "end_date": "2024-06-03"
+  }
+]
+2.2. Endpoint: /api/events/{eventId}
+● Method: GET
+● Response:
+○ Success (HTTP 200):
+{
+  "id": 1,
+  "name": "Event Name",
+  "description": "Event Description",
+  "start_date": "2024-05-01",
+  "end_date": "2024-05-03"
+}
+2.3. Endpoint: /api/events
+● Method: POST
+Request Body:
+{
+  "name": "New Event",
+  "description": "New Event Description",
+    "start_date": "2024-07-01",
+    "end_date": "2024-07-03"
+}
+● Response:
+○ Success (HTTP 201):
+{
+  "id": 3,
+  "name": "New Event",
+  "description": "New Event Description",
+  "start_date": "2024-07-01",
+  "end_date": "2024-07-03"
+}
+3. Certificate Generation API
+3.1. Endpoint: /api/certificates/generate
+● Method: POST
+Request Body:
+{
+  "eventId": 1,
+  "participantName": "John Doe",
+  "description": "Participant description"
+}
+● Response:
+○ Success (HTTP 200):
+{
+  "certificateId": 12345,
+  "participantName": "John Doe",
+  "event": {
+    "id": 1,
+    "name": "Event Name",
+    "start_date": "2024-05-01",
+    "end_date": "2024-05-03"
+  }
+}
+○ Error (HTTP 404):
+{
+  "error": "Not Found",
+  "message": "Event not found"
+}
+Database Design :
+1. User Table
+● Table Name: users
+● Columns:
+○ user_id (Primary Key, INT, NOT NULL)
+○ username (VARCHAR(50), NOT NULL, UNIQUE)
+○ password_hash (VARCHAR(255), NOT NULL)
+○ role (ENUM('faculty', 'admin'), NOT NULL)
+2. Event Table
+● Table Name: events
+● Columns:
+○ event_id (Primary Key, INT, NOT NULL)
+○ name (VARCHAR(100), NOT NULL)
+○ description (TEXT)
+○ start_date (DATE, NOT NULL)
+○ end_date (DATE, NOT NULL)
+○ organizer_id (INT, Foreign Key referencing users.user_id, NOT NULL)
+3. Certificate Table
+● Table Name: certificates
+● Columns:
+○ certificate_id (Primary Key, INT, NOT NULL)
+○ event_id (INT, Foreign Key referencing events.event_id, NOT NULL)
+○ participant_name (VARCHAR(100), NOT NULL)
+○ description (TEXT)
+○ issue_date (DATE, NOT NULL)
+4. Cell Table (for Admin Dashboard)
+● Table Name: cells
+● Columns:
+○ cell_id (Primary Key, INT, NOT NULL)
+○ name (VARCHAR(100), NOT NULL, UNIQUE)
+○ description (TEXT)
+5. CellCoordinator Table (for Admin Dashboard)
+● Table Name: cell_coordinators
+● Columns:
+○ cell_coordinator_id (Primary Key, INT, NOT NULL)
+○ cell_id (INT, Foreign Key referencing cells.cell_id, NOT NULL)
+○ faculty_id (INT, Foreign Key referencing users.user_id, NOT NULL)
+6. FacultyCellMapping Table (for Admin Dashboard)
+● Table Name: faculty_cell_mapping
+● Columns:
+○ faculty_id (INT, Foreign Key referencing users.user_id, NOT NULL)
+○ cell_id (INT, Foreign Key referencing cells.cell_id, NOT NULL)
+7. Database Relationships
+● Each event is organized by a faculty member (organizer_id in events table).
+● Each certificate is associated with a specific event (event_id in certificates table).
+● Each faculty member can be assigned to multiple cells (many-to-many relationship 
+between users and cells through faculty_cell_mapping table).
+● Each cell can have multiple faculty members assigned as coordinators (one-to-many 
+relationship between cells and cell_coordinators).
+Technology Stack
+Backend (Server-Side)
+1. Programming Language: PHP version
+2. Framework: CodeIgniter version 
+3. Database Management System: PostgreSQL version
+Frontend (Client-Side)
+1. JavaScript Framework/Library: React.js version
+2. UI Library: Material-UI  version
+Additional Tools and Technologies
+1. RESTful API Development: PHP CodeIgniter provides built-in support for building 
+RESTful APIs, allowing you to define API endpoints for client-server communication.
+2. Package Manager: npm 
+3. Version Control: Git
+4. Containerization: Docker 
+5. Continuous Integration/Continuous Deployment (CI/CD): Jenkins, Travis CI 
+Use Cases
+5.1 Use Case 1: User Login
+5.1.1 Description
+This use case describes the process of a user logging into the system.
+5.1.2 Actors
+User
+5.1.3 Preconditions
+The system is operational.
+User credentials are valid.
+5.1.4 Main Flow
+1. User navigates to the login page.
+2. User enters their username and password.
+3. System validates user credentials.
+4. If credentials are valid, the system grants access to the user and redirects them to the 
+main dashboard.
+If credentials are invalid, the system displays an error message.
+5.1.5 Postconditions
+User is logged into the system.
+5.2 Use Case 2: Event Creation
+5.2.1 Description
+This use case describes the process of creating a new event in the system.
+5.2.2 Actors
+Faculty/Administrator
+5.2.3 Preconditions
+User is logged into the system.User has appropriate permissions to create events.
+5.2.4 Main Flow
+1. User navigates to the event creation page.
+2. User enters event details such as name, date, description, and associated cells.
+3. User submits the event creation form.
+System validates input data and saves event details to the database.
+System displays a confirmation message indicating successful event creation.
+5.2.5 Postconditions
+New event is created and added to the system.
+5.3 Use Case 3: Certificate Generation
+5.3.1 Description
+This use case describes the process of generating certificates for event participants.
+5.3.2 Actors
+Administrator
+5.3.3 Preconditions
+Event has been conducted and participant data is available.
+5.3.4 Main Flow
+1. Administrator selects the event for which certificates need to be generated.
+2. System retrieves participant data for the selected event.
+3. System merges participant data with the certificate template.
+4. System generates a unique certificate for each participant.
+5. System provides options for distributing certificates (electronically or manually).
+5.3.5 Postconditions
+Certificates are generated and distributed to event participants.
+Implementation
+4.1 Code Development
+4.1.1 Set coding standards
+PHP (CodeIgniter)
+1. PSR Standards: Adhere to PHP Standards Recommendations (PSR) whenever possible, 
+such as PSR-1 (Basic Coding Standard) and PSR-12 (Extended Coding Style Guide).
+2. File Structure: Organize files and directories logically, following the MVC (Model-View-
+Controller) architecture of CodeIgniter.
+3. Naming Conventions:
+○ Use meaningful and descriptive names for variables, functions, classes, and 
+methods.
+○ Follow camelCase naming convention for variables and functions/methods.
+○ Class names should be in PascalCase (capitalizing the first letter of each word).
+4. Indentation and Formatting:
+○ Use consistent indentation (usually four spaces) for code blocks and control 
+structures.
+○ Use braces {} for control structures even for single-line statements.
+○ Keep lines of code within a reasonable length (e.g., 80-120 characters).
+5. Comments:
+○ Add comments to explain complex logic, algorithms, or non-obvious parts of the 
+code.
+○ Use PHPDoc comments for documenting classes, methods, and functions, 
+including descriptions, parameters, return types, and exceptions.
+6. Error Handling:
+○ Implement proper error handling mechanisms using try-catch blocks for exception
+handling.
+○ Use appropriate error reporting levels and logging to track errors and exceptions.
+7. Security:
+○ Sanitize user input to prevent SQL injection, XSS (Cross-Site Scripting), and 
+other security vulnerabilities.
+○ Validate user input and enforce access control to ensure data integrity and 
+security.
+React.js
+1. JavaScript Standard Style: Adhere to JavaScript Standard Style or ESLint rules for 
+consistent and maintainable code formatting and style.
+2. Component Structure:
+○ Organize components into functional or class-based components based on their 
+complexity and functionality.
+○ Use meaningful names for components that describe their purpose and 
+functionality.
+3. JSX Syntax:
+○ Write clean and concise JSX syntax, using JSX expressions, fragments, and 
+conditional rendering where necessary.
+○ Avoid complex logic within JSX templates; move logic to separate functions or 
+methods when possible.
+4. State Management:
+○ Follow best practices for state management, using React Hooks (useState, 
+useEffect) for managing component state.
+○ Consider using state management libraries like Redux or Context API for 
+managing global application state when needed.
+5. Component Lifecycle:
+○ Understand and utilize React component lifecycle methods (such as 
+componentDidMount, componentDidUpdate, componentWillUnmount) 
+appropriately for managing side effects and updating component state.
+6. Code Reusability:
+○ Encapsulate reusable UI elements and functionality into separate components for 
+better modularity and maintainability.
+○ Use props and component composition to pass data and behavior between parent 
+and child components.
+7. Error Handling:
+○ Implement error boundaries to catch and handle errors occurring within the 
+component tree gracefully.
+○ Display meaningful error messages to users when errors occur to aid in 
+troubleshooting and debugging.
+These coding standards and best practices will help ensure consistency, readability, 
+maintainability, and security across the PHP (CodeIgniter) backend and React.js frontend of the 
+FISAT Certificate Management System. 
+4.1.2. Environment Setup
+              Steps to get the program running on bare ubuntu machine:
+Step should contain all instructions for all tools.
+Setting up the development environment for the FISAT Certificate Management System involves
+configuring the necessary software tools, libraries, and dependencies for both backend (PHP with
+CodeIgniter) and frontend (React.js) development. 
+The below is a vague set of instructions. Give the set of instructions to be run on ubuntu latest 
+LTS.
+Backend (PHP with CodeIgniter)
+1. Install PHP:
+○ Download and install PHP from the official PHP website or using a package 
+manager like Homebrew (for macOS) or Chocolatey (for Windows).
+○ Ensure PHP is properly installed and added to the system PATH.
+2. Install Composer:
+○ Composer is a dependency manager for PHP. Download and install Composer 
+following the instructions on the official Composer website.
+3. Install CodeIgniter:
+○ Use Composer to create a new CodeIgniter project or download the CodeIgniter 
+framework from the official website.
+○ Follow the CodeIgniter documentation to set up the project directory structure and
+configuration files.
+4. Configure Database:
+○ Set up a PostgreSQL database server or use an existing installation.
+○ Configure the CodeIgniter database configuration file (database.php) with the 
+database connection details.
+5. Install Additional Packages (Optional):
+○ Depending on the project requirements, install additional PHP packages or 
+libraries using Composer, such as authentication libraries or utility packages.
+Frontend (React.js)
+1. Install Node.js and npm:
+○ Download and install Node.js from the official Node.js website, which includes 
+npm (Node Package Manager).
+○ Verify the installation by running node -v and npm -v in the terminal/command 
+prompt.
+2. Create React App:
+○ Use create-react-app to create a new React.js project.
+○ Run npx create-react-app <project-name> to create a new project directory with 
+the necessary files and dependencies.
+3. Set up Axios (Optional):
+○ If your React.js application needs to make HTTP requests to the backend API, 
+install Axios using npm: npm install axios.
+○ Axios is a popular HTTP client library that simplifies sending AJAX requests 
+from the browser.
+4. Start Development Server:
+○ Navigate to the project directory and run npm start to start the development 
+server.
+○ This will compile the React.js code and open the application in a web browser.
+IDE and Text Editor
+1. Choose an IDE or Text Editor:
+○ Use a suitable integrated development environment (IDE) or text editor for 
+coding, such as Visual Studio Code, Sublime Text, Atom, or PHPStorm.
+○ Install necessary plugins or extensions for PHP and JavaScript development.
+Version Control
+1. Initialize Git Repository:
+○ Initialize a Git repository in the project directory using the command git init.
+○ Set up a remote repository on a hosting service like GitHub, GitLab, or Bitbucket 
+for collaborative development and version control.
+Additional Tools (Optional)
+1. Database Management Tool:
+○ Install a database management tool like pgAdmin or DBeaver for managing 
+PostgreSQL databases.
+2. API Testing Tool:
+○ Use tools like Postman or Insomnia for testing API endpoints and making HTTP 
+requests during development.
+3. Continuous Integration/Continuous Deployment (CI/CD):
+○ Set up CI/CD pipelines using services like GitHub Actions, Travis CI, or Jenkins 
+for automated testing and deployment.
+Sample steps can be added 
+Deployment:
+● Deployment on AWS:
+○ Application deployed on AWS infrastructure for high availability, scalability, and 
+reliability.
+○ Utilizes AWS services like EC2 for web servers, RDS for managed PostgreSQL 
+database, and S3 for file storage.
+FISAT Certificate Management System Test Plan
+Test Plan:
+1. Introduction
+This Test Plan outlines the testing approach, scope, resources, and schedule for the FISAT 
+Certificate Management System. The purpose is to ensure that the system meets its functional 
+and non-functional requirements and is ready for deployment.
+2. Test Objectives
+● Validate the functionality of the system according to the Software Requirements 
+Specification (SRS).
+● Ensure the reliability, security, and performance of the system.
+● Identify and address any defects or issues before deployment.
+3. Test Scope
+The testing will cover both backend (PHP with CodeIgniter) and frontend (React.js) components 
+of the FISAT Certificate Management System. It includes functional testing, non-functional 
+testing (performance, security), and user acceptance testing (UAT).
+4. Test Approach
+● Use a combination of manual and automated testing techniques.
+● Conduct unit testing, integration testing, system testing, and acceptance testing.
+● Perform regression testing to ensure that new changes do not adversely affect existing 
+functionality.
+5. Test Environment
+Backend Testing:
+● Operating System: Windows/Linux/macOS
+● Web Server: Apache or Nginx
+● Database: PostgreSQL
+● PHP Version: Compatible with CodeIgniter framework requirements
+Frontend Testing:
+● Browsers: Chrome, Firefox, Safari
+● Operating System: Windows/Linux/macOS
+6. Test Cases
+● Unit Testing: Test individual backend functions and frontend components in isolation.
+● Integration Testing: Test the interaction between backend and frontend components.
+● System Testing: Test the entire system to ensure all components work together 
+seamlessly.
+● Acceptance Testing: Test the application against user acceptance criteria to validate its 
+readiness for deployment.
+7. Test Execution
+● Execute test cases according to the test plan and document test results.
+● Use a defect tracking system to log and track issues encountered during testing.
+8. Test Schedule
+1. Test Preparation: Prepare test cases and test data based on requirements - Week 1
+2. Test Execution: Execute test cases and document test results - Weeks 2-3
+3. Defect Resolution: Address and fix reported defects - Weeks 4-5
+4. Regression Testing: Perform regression testing after defect resolution - Weeks 6-7
+9. Risks and Contingencies
+● Risk: Unexpected changes in requirements may impact the testing schedule and scope.
+● Contingency: Maintain open communication with stakeholders and be prepared to adapt 
+the test plan as needed.
+10. Conclusion
+This Test Plan outlines the approach, scope, resources, and schedule for testing the FISAT 
+Certificate Management System. It aims to ensure the quality and reliability of the system before 
+deployment.
+Test Scenarios :
+1. User Authentication
+1. TC-01: Verify that a user can log in with valid username and password.
+2. TC-02: Verify that an error message is displayed for invalid login credentials.
+3. TC-03: Verify that users are redirected to the login page when accessing protected pages 
+without authentication.
+2. Event Management
+1. TC-04: Verify that a faculty member can create a new event with valid details.
+2. TC-05: Verify that the created event is displayed correctly on the main dashboard.
+3. TC-06: Verify that a faculty member can edit an existing event successfully.
+4. TC-07: Verify that a faculty member can delete an existing event.
+3. Certificate Management
+1. TC-08: Verify that certificates are issued correctly for participants of events.
+2. TC-09: Verify that the issued certificate contains accurate participant information.
+3. TC-10: Verify that a faculty member can download certificates in CSV or XLS format.
+4. Cell/Club Management (Admin Dashboard)
+1. TC-11: Verify that an admin can create a new cell/club with valid details.
+2. TC-12: Verify that the created cell/club is displayed correctly on the admin dashboard.
+3. TC-13: Verify that an admin can assign a faculty member as a coordinator for a cell/club.
+4. TC-14: Verify that an admin can view and manage faculty-cell mappings successfully.
+5. User Interface
+1. TC-15: Verify that all UI elements (buttons, forms, input fields) are displayed correctly 
+and functional.
+2. TC-16: Verify that the UI is responsive and works well on different screen sizes and 
+devices.
+3. TC-17: Verify that error messages are displayed appropriately for invalid user inputs.
+6. Security
+1. TC-18: Verify that passwords are stored securely using encryption techniques.
+2. TC-19: Verify that access controls are enforced correctly, preventing unauthorized access
+to protected resources.
+3. TC-20: Verify that input validation is performed to prevent common security 
+vulnerabilities (e.g., SQL injection, XSS).
+7. Performance
+1. TC-21: Verify that the system responds promptly to user interactions and requests.
+2. TC-22: Perform stress testing by simulating a high volume of concurrent users to 
+evaluate system performance.
+3. TC-23: Measure and analyze response times for different operations to identify 
+performance bottlenecks.
+8. Compatibility
+1. TC-24: Test the application on different web browsers (Chrome, Firefox, Safari) to 
+ensure cross-browser compatibility.
+2. TC-25: Test the application on different operating systems (Windows, Linux, macOS) to 
+ensure cross-platform compatibility.
+3. TC-26: Verify that the application works correctly on mobile devices with varying screen
+sizes.
+9. Usability
+1. TC-27: Conduct usability testing with end-users to evaluate the intuitiveness and ease of 
+use of the application.
+2. TC-28: Gather feedback from users regarding the clarity of instructions, navigation, and 
+overall user experience.
+3. TC-29: Make improvements based on user feedback to enhance usability and user 
+satisfaction.
+10. Accessibility
+1. TC-30: Verify that the application complies with accessibility standards (e.g., WCAG) to 
+ensure accessibility for users with disabilities.
+2. TC-31: Test the application with screen readers and assistive technologies to evaluate 
+accessibility features.
+3. TC-32: Ensure that all interactive elements are keyboard accessible and have proper 
+focus indicators.
+These test cases cover various aspects of the FISAT Certificate Management System, ensuring 
+thorough testing and validation of its functionality, usability, security, performance, 
+compatibility, and accessibility. Adjust the test cases as needed based on specific requirements 
+and use cases.
+Unit Testing 
+Unit testing involves testing individual units or components of the software application in 
+isolation to ensure they work correctly. For the FISAT Certificate Management System, unit 
+testing can be performed for both backend (PHP with CodeIgniter) and frontend (React.js) 
+components. Here are some example unit test cases for each:
+Backend (PHP with CodeIgniter)
+1. User Authentication Function:
+○ Test that the authentication function correctly validates a user's credentials.
+○ Test with valid username and password.
+○ Test with invalid username.
+○ Test with invalid password.
+○ Test for error handling when database connection fails.
+2. Event Creation Function:
+○ Test that the function correctly creates a new event in the database.
+○ Test with valid event details.
+○ Test for error handling when required fields are missing.
+○ Test for error handling when database insertion fails.
+3. Certificate Issuance Function:
+○ Test that the function correctly generates and issues certificates for participants of 
+events.
+○ Test with valid participant information.
+○ Test for error handling when required participant information is missing.
+○ Test for error handling when certificate generation fails.
+Frontend (React.js)
+1. Login Component:
+○ Test that the login component renders correctly.
+○ Test that the login form captures user input correctly.
+○ Test that the login function is called when the login button is clicked.
+○ Test for error handling when invalid credentials are entered.
+2. Event Creation Form:
+○ Test that the event creation form renders correctly.
+○ Test that the form captures event details correctly.
+○ Test that the create event function is called when the save button is clicked.
+○ Test for error handling when required fields are empty.
+3. Certificate Download Component:
+○ Test that the certificate download component renders correctly.
+○ Test that the correct certificates are displayed for download.
+○ Test that the download function is called when the download button is clicked.
+○ Test for error handling when certificate download fails.
+Test Frameworks and Tools
+● Backend Testing: PHPUnit can be used for unit testing PHP components.
+● Frontend Testing: Jest and React Testing Library can be used for unit testing React.js 
+components.
+Example PHPUnit Test Case (Backend)
+use PHPUnit\Framework\TestCase;
+use App\Models\UserModel;
+class AuthenticationTest extends TestCase
+{
+    public function testValidAuthentication()
+    {
+        $userModel = new UserModel();
+        $result = $userModel->authenticate('username', 'password');
+        $this->assertTrue($result);
+    }
+    public function testInvalidAuthentication()
+    {
+        $userModel = new UserModel();
+        $result = $userModel->authenticate('invalid_username', 'invalid_password');
+        $this->assertFalse($result);
+    }
+}
+Example React Testing Library Test Case (Frontend)
+import { render, fireEvent } from '@testing-library/react';
+import Login from './Login';
+test('renders login form', () => {
+  const { getByLabelText, getByText } = render(<Login />);
+  const usernameInput = getByLabelText(/Username/i);
+  const passwordInput = getByLabelText(/Password/i);
+  const loginButton = getByText(/Login/i);
+  expect(usernameInput).toBeInTheDocument();
+  expect(passwordInput).toBeInTheDocument();
+  expect(loginButton).toBeInTheDocument();
+});
+test('calls login function on button click', () => {
+  const mockLogin = jest.fn();
+  const { getByText } = render(<Login login={mockLogin} />);
+  const loginButton = getByText(/Login/i);
+  fireEvent.click(loginButton);
+  expect(mockLogin).toHaveBeenCalled();
+});
+These are just examples of unit test cases for the FISAT Certificate Management System. Actual 
+test cases should be tailored to the specific functionalities and requirements of the application.
+Integration Testing
+Integration testing involves testing the interaction and integration between different modules or 
+components of the software application. For the FISAT Certificate Management System, 
+integration testing can focus on ensuring that backend (PHP with CodeIgniter) and frontend 
+(React.js) components work together seamlessly. Here are some example integration test 
+scenarios:
+Backend-Frontend Integration Testing
+1. User Authentication Integration:
+○ Test the integration between the login form (frontend) and the authentication 
+function (backend).
+○ Verify that user authentication works correctly when valid credentials are entered.
+○ Verify that error messages are displayed correctly when authentication fails.
+2. Event Management Integration:
+○ Test the integration between the event creation form (frontend) and the event 
+creation function (backend).
+○ Verify that events are created successfully in the database with valid details.
+○ Verify that events are displayed correctly on the main dashboard after creation.
+3. Certificate Management Integration:
+○ Test the integration between the certificate download component (frontend) and 
+the certificate issuance function (backend).
+○ Verify that certificates are issued correctly for participants of events.
+○ Verify that certificates can be downloaded successfully in CSV or XLS format.
+Test Frameworks and Tools
+● Backend-Frontend Integration Testing: For end-to-end testing of the integration 
+between backend and frontend components, tools like Selenium WebDriver or Cypress 
+can be used.
+● API Testing: For testing the integration between the backend API and frontend 
+components, tools like Postman or Insomnia can be used to send HTTP requests and 
+verify responses.
+Example Integration Test Scenario (Using Cypress)
+describe('User Authentication Integration', () => {
+  it('Successfully logs in with valid credentials', () => {
+    cy.visit('/login');
+    cy.get('[data-testid=username]').type('valid_username');
+    cy.get('[data-testid=password]').type('valid_password');
+    cy.get('[data-testid=login-button]').click();
+    cy.url().should('include', '/dashboard');
+  });
+  it('Displays error message for invalid credentials', () => {
+    cy.visit('/login');
+    cy.get('[data-testid=username]').type('invalid_username');
+    cy.get('[data-testid=password]').type('invalid_password');
+    cy.get('[data-testid=login-button]').click();
+    cy.contains('Invalid username or password').should('be.visible');
+  });
+});
+In this example, Cypress is used to simulate user interactions with the login form and verify the 
+integration between the frontend login component and the backend authentication function. 
+Similar test scenarios can be created for other integration points in the FISAT Certificate 
+Management System.
+Integration testing helps ensure that all components of the system work together as intended, 
+identifying and addressing any issues that may arise during the integration process.
+Functional Testing 
+Functional testing involves testing the functional requirements of the software application to
+ensure  that  it  behaves  as  expected  and  meets  the  specified  requirements.  For  the  FISAT
+Certificate  Management  System,  functional  testing  can  cover  various  aspects  such  as  user
+authentication,  event  management,  certificate  issuance,  and  more.  Here  are  some  example
+functional test scenarios:
+User Authentication
+1. Valid Login:
+○ Input valid username and password.
+○ Verify that the user is successfully logged in and redirected to the main 
+dashboard.
+2. Invalid Login:
+○ Input invalid username or password.
+○ Verify that an error message is displayed, and the user is not logged in.
+3. Logout:
+○ Click on the logout button.
+○ Verify that the user is successfully logged out and redirected to the login page.
+Event Management
+4. Create Event:
+○ Fill in the event creation form with valid details.
+○ Verify that the event is successfully created and displayed on the main dashboard.
+5. Edit Event:
+○ Select an existing event to edit.
+○ Modify the event details.
+○ Verify that the changes are saved successfully and reflected in the event list.
+6. Delete Event:
+○ Select an existing event to delete.
+○ Confirm the deletion.
+○ Verify that the event is removed from the event list.
+Certificate Management
+7. Issue Certificate:
+○ Select an event with participants.
+○ Click on the "Issue Certificates" button.
+○ Verify that certificates are generated and issued to participants.
+8. Download Certificates:
+○ Select an event.
+○ Click on the "Download Certificates" button.
+○ Verify that certificates are downloaded in CSV or XLS format.
+Cell/Club Management (Admin Dashboard)
+9. Create Cell/Club:
+○ Fill in the cell/club creation form with valid details.
+○ Verify that the cell/club is successfully created and displayed on the admin 
+dashboard.
+10. Assign Coordinator:
+○ Select a cell/club.
+○ Assign a faculty member as the coordinator.
+○ Verify that the coordinator assignment is saved successfully.
+Usability and Accessibility
+11. User Interface Testing:
+○ Test the user interface elements for correctness, consistency, and responsiveness.
+○ Ensure that all interactive elements are accessible via keyboard navigation.
+Error Handling
+12. Invalid Inputs:
+○ Submit forms with invalid or missing inputs.
+○ Verify that appropriate error messages are displayed.
+Security
+13. Access Controls:
+○ Test access to protected pages without authentication.
+○ Verify that unauthorized users are redirected to the login page.
+Performance
+14. Response Time:
+○ Measure and analyze the response time for various operations (login, event 
+creation, certificate issuance).
+○ Ensure that the application responds promptly under normal load conditions.
+Compatibility
+15. Browser Compatibility:
+○ Test the application on different web browsers (Chrome, Firefox, Safari) to ensure
+cross-browser compatibility.
+These functional test scenarios cover a wide range of functionalities and use cases of the FISAT 
+Certificate Management System, ensuring that it meets the specified requirements and behaves 
+as expected in various situations. Adjust the test scenarios as needed based on specific project 
+requirements and use cases.
+Load Testing
+Load testing involves testing the performance of the software application under expected load
+conditions to ensure that it can handle a certain level of user activity without degradation in
+performance. For the FISAT Certificate Management System, load testing can be conducted to
+evaluate how the system behaves under typical usage scenarios and peak loads. Here's how load
+testing can be performed:
+Load Testing Scenarios:
+1. Login Load Test:
+○ Simulate multiple users logging in simultaneously.
+○ Gradually increase the number of concurrent logins to observe system behavior.
+2. Event Creation Load Test:
+○ Simulate concurrent event creation requests by multiple users.
+○ Measure the system's ability to handle a large number of event creation operations
+concurrently.
+3. Certificate Issuance Load Test:
+○ Simulate concurrent certificate issuance requests for events with a large number 
+of participants.
+○ Measure the system's performance in generating and issuing certificates under 
+load.
+4. Dashboard Load Test:
+○ Simulate concurrent access to the main dashboard by multiple users.
+○ Measure the system's response time for loading the dashboard with varying 
+numbers of concurrent users.
+Load Testing Tools:
+1. Apache JMeter: A popular open-source load testing tool that can simulate various user 
+scenarios and measure performance metrics.
+2. Gatling: A Scala-based load testing tool that provides real-time reporting and supports 
+scripting scenarios.
+3. LoadRunner: A comprehensive load testing tool by Micro Focus that supports various 
+protocols and technologies.
+Load Testing Metrics:
+1. Response Time: Measure the time taken for the system to respond to user requests under
+load.
+2. Throughput: Measure the number of requests processed per unit time (e.g., requests per 
+second).
+3. Concurrency: Measure the number of concurrent users or connections during the load 
+test.
+4. Error Rate: Monitor the rate of errors or failures encountered during the load test.
+Load Testing Process:
+1. Identify Scenarios: Determine the critical user scenarios to be tested under load.
+2. Define Load Profiles: Create load profiles specifying the number of concurrent users, 
+ramp-up times, and duration of the test.
+3. Configure Test Environment: Set up the test environment to replicate production 
+conditions, including hardware, network, and software configurations.
+4. Execute Load Test: Run the load test scenarios using the selected load testing tool, 
+monitoring performance metrics in real-time.
+5. Analyze Results: Analyze the performance metrics collected during the load test to 
+identify bottlenecks, performance issues, and areas for improvement.
+6. Optimize and Retest: Make necessary optimizations to improve system performance 
+based on the load test results, and retest to validate the improvements.
+Load Testing Considerations:
+1. Realistic Scenarios: Design load test scenarios that mimic real-world usage patterns and 
+user behavior.
+2. Scalability Testing: Test the system's ability to scale with increasing load by adding 
+more resources (e.g., servers, databases) as needed.
+3. Endurance Testing: Conduct endurance testing to assess the system's stability and 
+performance over prolonged periods under sustained load.
+4. Failover Testing: Test failover mechanisms and recovery procedures to ensure system 
+resilience and availability under load.
+Load testing helps identify performance bottlenecks, scalability issues, and other performance-
+related concerns, enabling the optimization of the FISAT Certificate Management System for 
+optimal performance and user experience under varying load conditions.

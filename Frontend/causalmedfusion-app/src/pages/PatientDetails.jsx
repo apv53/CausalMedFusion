@@ -10,6 +10,8 @@ export default function PatientDetails() {
   const [visits, setVisits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [admitTime, setAdmitTime] = useState(new Date().toLocaleString('sv-SE').slice(0, 16).replace(' ', 'T'));
+  const [showTimePicker, setShowTimePicker] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -42,6 +44,7 @@ export default function PatientDetails() {
     try {
       const res = await API.post("visits/", {
         patient: patient.id,
+        admit_timestamp: new Date(admitTime).toISOString(),
       });
 
       navigate(`/patients/${patient.id}/visits/${res.data.id}`);
@@ -84,13 +87,36 @@ export default function PatientDetails() {
             Patient Details
           </h4>
 
-          <div className="d-flex gap-2">
-            <button
-              className="btn btn-primary"
-              onClick={handleCreateVisit}
-            >
-              Register Visit
-            </button>
+          <div className="d-flex flex-column align-items-end gap-2">
+            {!showTimePicker ? (
+              <button
+                className="btn btn-primary"
+                onClick={() => setShowTimePicker(true)}
+              >
+                Register Visit
+              </button>
+            ) : (
+              <div className="d-flex gap-2 align-items-center">
+                <input
+                  type="datetime-local"
+                  className="form-control form-control-sm"
+                  value={admitTime}
+                  onChange={(e) => setAdmitTime(e.target.value)}
+                />
+                <button
+                  className="btn btn-success btn-sm"
+                  onClick={handleCreateVisit}
+                >
+                  Confirm
+                </button>
+                <button
+                  className="btn btn-outline-danger btn-sm"
+                  onClick={() => setShowTimePicker(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+            )}
 
             <button
               className="btn btn-outline-secondary"

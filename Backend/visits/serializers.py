@@ -8,4 +8,4 @@ class VisitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Visit
         fields = "__all__"
-        read_only_fields = ["visit_id", "admit_timestamp"]
+        read_only_fields = ["visit_id"]

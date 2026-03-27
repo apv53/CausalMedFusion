@@ -1,0 +1,3 @@
+Triggering inference for visit 000009
+Result type: <class 'dict'>
+Result dict: {'assessment_id': 'c163a9ca-6a51-4ae6-af94-0bfcd516cf89', 'visit_id': '000009', 'severity_index': 1, 'mortality_prob': None, 'severity_score': None, 'vent_prob': None, 'dialysis_prob': None, 'mechanical_prob': None, 'cardiac_prob': None, 'global_sev_prob': None, 'assessment_report': 'Severity assessment S1 for stay 000009, computed at 2026-03-27 00:14:58 UTC using 1 of 6 windows.\n\nMortality risk: nan% (critical).\nGlobal severity score: nan% (critical).\n\nIntervention probabilities:\n  - Mechanical ventilation: nan% (critical)\n  - Cardiac support: nan% (critical)\n  - Mechanical support: nan% (critical)\n  - Dialysis: nan% (critical)'}

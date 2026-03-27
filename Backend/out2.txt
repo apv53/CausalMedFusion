@@ -1,0 +1,4 @@
+Payload: {'image_name': '101', 'file_id': '101', 'stay_id': '54', 'patient_id': '000001', 'visit_id': '000009', 'assessment_id': '000054', 'window_id': 3, 'view_position': 'AP', 'file_path': 'C:\\Users\\anuro\\OneDrive\\Desktop\\Causal Multimodal Medical Modelling System\\storage\\uploads\\assessment\\cxr_AP_05_31_18_312.jpg', 'icu_intime': '2026-03-26T23:24:36.729953+00:00', 'record_time': '2026-03-26T23:24:36.729953+00:00'}
+URL: http://localhost:8001/v1/process-image
+Status Code: 404
+Response: {"detail":"Image not found: C:\\Users\\anuro\\OneDrive\\Desktop\\Causal Multimodal Medical Modelling System\\storage\\uploads\\assessment\\cxr_AP_05_31_18_312.jpg"}

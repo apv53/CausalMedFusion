@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from patients.models import Patient
 
 class Visit(models.Model):
@@ -10,7 +11,7 @@ class Visit(models.Model):
         related_name="visits"
     )
 
-    admit_timestamp = models.DateTimeField(auto_now_add=True)
+    admit_timestamp = models.DateTimeField(default=timezone.now)
     discharge_timestamp = models.DateTimeField(null=True, blank=True)
 
     def save(self, *args, **kwargs):

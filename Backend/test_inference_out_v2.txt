@@ -1,0 +1,3 @@
+Triggering inference for visit 000009 on port 8010
+Status Code: 200
+Result dict: {'assessment_id': '5adc3b35-658f-4ede-a9ea-1962fb97cf62', 'visit_id': '000009', 'severity_index': 2, 'mortality_prob': 0.094037, 'severity_score': 0.039777, 'vent_prob': 0.074331, 'dialysis_prob': 0.007634, 'mechanical_prob': 0.04438, 'cardiac_prob': 0.001787, 'global_sev_prob': 0.039777, 'assessment_report': 'Severity assessment S2 for stay 000009, computed at 2026-03-27 00:17:39 UTC using 2 of 6 windows.\n\nMortality risk: 9.4% (low).\nGlobal severity score: 4.0% (low).\n\nIntervention probabilities:\n  - Mechanical ventilation: 7.4% (low)\n  - Cardiac support: 0.2% (low)\n  - Mechanical support: 4.4% (low)\n  - Dialysis: 0.8% (low)'}

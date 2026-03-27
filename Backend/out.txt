@@ -1,0 +1,2 @@
+File ID: 101, Category: radiography_image
+Path: C:\Users\anuro\OneDrive\Desktop\Causal Multimodal Medical Modelling System\storage\uploads\assessment\cxr_AP_05_31_18_312.jpg

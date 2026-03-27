@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# Virtual environments
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Git
+.git/
+.gitignore
+
+# Test artifacts
+tests/
+test_*.py
+error.txt
+*.log
+
+# Upload storage (large — mounted as volumes, not baked into image)
+# NOTE: data/ is NOT excluded — it contains small reference lookup parquet files
+# (lab_item_lookup, vital_item_lookup, vital_count_lookup) required at runtime.
+storage/
+
+# OS
+.DS_Store
+Thumbs.db

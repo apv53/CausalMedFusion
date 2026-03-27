@@ -139,7 +139,8 @@ def embed_single(visit_id, file_id, window_id, modality):
             "file_id": str(file_id),
             "window_id": window_id,
         }
-        response = requests.post(url, json=payload, timeout=120)
+        headers = {"X-API-Key": getattr(settings, "ML_GATEWAY_API_KEY", "")}
+        response = requests.post(url, json=payload, headers=headers, timeout=120)
         response.raise_for_status()
         return response.json()
     except Exception as e:
@@ -166,7 +167,8 @@ def embed_batch(visit_id, items, modality):
             "modality": modality,
             "items": items,
         }
-        response = requests.post(url, json=payload, timeout=300)
+        headers = {"X-API-Key": getattr(settings, "ML_GATEWAY_API_KEY", "")}
+        response = requests.post(url, json=payload, headers=headers, timeout=300)
         response.raise_for_status()
         return response.json()
     except Exception as e:
@@ -188,7 +190,8 @@ def trigger_inference_service(visit_id: str) -> dict | None:
 
     try:
         payload = {"visit_id": visit_id}
-        response = requests.post(url, json=payload, timeout=120)
+        headers = {"X-API-Key": getattr(settings, "ML_GATEWAY_API_KEY", "")}
+        response = requests.post(url, json=payload, headers=headers, timeout=120)
         response.raise_for_status()
         return response.json()
     except Exception as e:
