@@ -476,7 +476,3 @@ with h5py.File(CSV_PATH, "w") as hdf:
     grp.attrs["source_files"] = ",".join(FILES)
 
 print("Saved cxr_embeddings.h5 successfully.")
-
-from google.colab import files
-
-files.download(CSV_PATH)
